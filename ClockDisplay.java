@@ -24,8 +24,9 @@ public class ClockDisplay
      */
     public ClockDisplay()
     {
-        hours = new NumberDisplay(24);
+        hours = new NumberDisplay(12);
         minutes = new NumberDisplay(60);
+        
         updateDisplay();
     }
 
@@ -51,7 +52,7 @@ public class ClockDisplay
         if(minutes.getValue() == 0) {  // it just rolled over!
             hours.increment();
         }
-        updateDisplay();
+        updateDisplay(); 
     }
 
     /**
@@ -64,7 +65,7 @@ public class ClockDisplay
         minutes.setValue(minute);
         updateDisplay();
     }
-
+ 
     /**
      * Return the current time of this display in the format HH:MM.
      */
@@ -78,7 +79,20 @@ public class ClockDisplay
      */
     private void updateDisplay()
     {
-        displayString = hours.getDisplayValue() + ":" + 
-                        minutes.getDisplayValue();
+        int hour = hours.getValue();
+        String suffix = "am";
+        if(hour >= 12)
+        {
+            hour = hour -12;
+            suffix ="pm";
+        }
+        
+        displayString = hour + ":" + minutes.getDisplayValue() + suffix;
+        if(hour == 0)
+        {
+            hour = 12;
+        }
+        
+
     }
 }
